@@ -16,5 +16,5 @@ services:
       
     volumes:
       - type: bind
-        source: /var/lib/efs
+        source: /home/ec2-user/efs
         target: /var/www/html
