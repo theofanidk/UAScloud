@@ -1,25 +1,20 @@
-version: '3'
+version: '3.1'
 
 services:
-
-  wordpress:
-    image: wordpress:5.1.1-fpm-alpine
-    container_name: wordpress
+  joomla:
+    image: joomla
     restart: always
+    ports:
+      - 80:80
     env_file: .env
+    # koneksi ke database
     environment:
-      - WORDPRESS_DB_HOST=$MYSQL_DB
-      - WORDPRESS_DB_USER=$MYSQL_USER
-      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
-      - WORDPRESS_DB_NAME=wordpress
+      - JOOMLA_DB_HOST=$MYSQL_DB_HOST
+      - JOOMLA_DB_PASSWORD=$MYSQL_DB_PASSWORD
+      - JOOMLA_DB_USER=$MYSQL_DB_USER
+      - JOOMLA_DB_NAME=MYSQL_DB_NAME
+      
     volumes:
       - type: bind
-        source: /home/ec2-user/wordpress
+        source: /var/lib/efs
         target: /var/www/html
-    networks:
-      - app-network
-
-
-networks:
-  app-network:
-    driver: bridge
